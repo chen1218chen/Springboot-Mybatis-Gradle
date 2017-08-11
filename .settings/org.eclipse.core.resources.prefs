@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/main/java/com/cc/config/MybatisConf.java=UTF-8
+encoding//src/main/java/com/cc/config/Swagger2.java=UTF-8
+encoding//src/main/java/com/cc/controller/UserController.java=UTF-8
+encoding//src/main/java/com/cc/dao/UserDao.java=UTF-8
+encoding//src/main/java/com/cc/entity/User.java=UTF-8
+encoding//src/main/java/com/cc/main/StartApp.java=UTF-8
+encoding//src/main/java/com/cc/service/UserService.java=UTF-8
+encoding/<project>=UTF-8

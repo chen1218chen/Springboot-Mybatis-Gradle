@@ -1,0 +1,26 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.cc'
+version = '1.0-SNAPSHOT'
+
+description = """"""
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+repositories {     
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.2.RELEASE'
+    compile group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version:'1.1.1'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.40'
+    compile group: 'com.github.pagehelper', name: 'pagehelper', version: '4.1.0'
+    compile group: 'io.springfox', name: 'springfox-swagger2', version:'2.2.2'
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version:'2.2.2'
+    compile group: 'org.springframework', name: 'springloaded', version:'1.2.6.RELEASE'  
+}
