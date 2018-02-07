@@ -2,7 +2,8 @@ package com.cc.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
 
 import com.cc.dao.UserDao;
@@ -19,7 +20,7 @@ import com.cc.entity.User;
 @Service
 public class UserService {
 
-    @Autowired
+    @Resource
     private UserDao userDao;
 
     public String show() {
