@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cc.dao.ImageMapper" >
+  <resultMap id="BaseResultMap" type="com.cc.entity.Image" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="aera" property="aera" jdbcType="VARCHAR" />
+    <result column="coordinate" property="coordinate" jdbcType="VARCHAR" />
+    <result column="createUser" property="createuser" jdbcType="VARCHAR" />
+    <result column="dateTime" property="datetime" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="imageName" property="imagename" jdbcType="VARCHAR" />
+    <result column="imagePath" property="imagepath" jdbcType="VARCHAR" />
+    <result column="imageSize" property="imagesize" jdbcType="DOUBLE" />
+    <result column="imageType" property="imagetype" jdbcType="VARCHAR" />
+    <result column="attachName" property="attachname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, aera, coordinate, createUser, dateTime, description, imageName, imagePath, imageSize, 
+    imageType, attachName
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cc.entity.ImageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from image
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from image
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cc.entity.ImageExample" >
+    delete from image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cc.entity.Image" >
+    insert into image (id, aera, coordinate, 
+      createUser, dateTime, description, 
+      imageName, imagePath, imageSize, 
+      imageType, attachName)
+    values (#{id,jdbcType=INTEGER}, #{aera,jdbcType=VARCHAR}, #{coordinate,jdbcType=VARCHAR}, 
+      #{createuser,jdbcType=VARCHAR}, #{datetime,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{imagename,jdbcType=VARCHAR}, #{imagepath,jdbcType=VARCHAR}, #{imagesize,jdbcType=DOUBLE}, 
+      #{imagetype,jdbcType=VARCHAR}, #{attachname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cc.entity.Image" >
+    insert into image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="aera != null" >
+        aera,
+      </if>
+      <if test="coordinate != null" >
+        coordinate,
+      </if>
+      <if test="createuser != null" >
+        createUser,
+      </if>
+      <if test="datetime != null" >
+        dateTime,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="imagename != null" >
+        imageName,
+      </if>
+      <if test="imagepath != null" >
+        imagePath,
+      </if>
+      <if test="imagesize != null" >
+        imageSize,
+      </if>
+      <if test="imagetype != null" >
+        imageType,
+      </if>
+      <if test="attachname != null" >
+        attachName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aera != null" >
+        #{aera,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null" >
+        #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imagename != null" >
+        #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="imagesize != null" >
+        #{imagesize,jdbcType=DOUBLE},
+      </if>
+      <if test="imagetype != null" >
+        #{imagetype,jdbcType=VARCHAR},
+      </if>
+      <if test="attachname != null" >
+        #{attachname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cc.entity.ImageExample" resultType="java.lang.Integer" >
+    select count(*) from image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update image
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.aera != null" >
+        aera = #{record.aera,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coordinate != null" >
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createuser != null" >
+        createUser = #{record.createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datetime != null" >
+        dateTime = #{record.datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagename != null" >
+        imageName = #{record.imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagepath != null" >
+        imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagesize != null" >
+        imageSize = #{record.imagesize,jdbcType=DOUBLE},
+      </if>
+      <if test="record.imagetype != null" >
+        imageType = #{record.imagetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.attachname != null" >
+        attachName = #{record.attachname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update image
+    set id = #{record.id,jdbcType=INTEGER},
+      aera = #{record.aera,jdbcType=VARCHAR},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      createUser = #{record.createuser,jdbcType=VARCHAR},
+      dateTime = #{record.datetime,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      imageName = #{record.imagename,jdbcType=VARCHAR},
+      imagePath = #{record.imagepath,jdbcType=VARCHAR},
+      imageSize = #{record.imagesize,jdbcType=DOUBLE},
+      imageType = #{record.imagetype,jdbcType=VARCHAR},
+      attachName = #{record.attachname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cc.entity.Image" >
+    update image
+    <set >
+      <if test="aera != null" >
+        aera = #{aera,jdbcType=VARCHAR},
+      </if>
+      <if test="coordinate != null" >
+        coordinate = #{coordinate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="datetime != null" >
+        dateTime = #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imagename != null" >
+        imageName = #{imagename,jdbcType=VARCHAR},
+      </if>
+      <if test="imagepath != null" >
+        imagePath = #{imagepath,jdbcType=VARCHAR},
+      </if>
+      <if test="imagesize != null" >
+        imageSize = #{imagesize,jdbcType=DOUBLE},
+      </if>
+      <if test="imagetype != null" >
+        imageType = #{imagetype,jdbcType=VARCHAR},
+      </if>
+      <if test="attachname != null" >
+        attachName = #{attachname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cc.entity.Image" >
+    update image
+    set aera = #{aera,jdbcType=VARCHAR},
+      coordinate = #{coordinate,jdbcType=VARCHAR},
+      createUser = #{createuser,jdbcType=VARCHAR},
+      dateTime = #{datetime,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      imageName = #{imagename,jdbcType=VARCHAR},
+      imagePath = #{imagepath,jdbcType=VARCHAR},
+      imageSize = #{imagesize,jdbcType=DOUBLE},
+      imageType = #{imagetype,jdbcType=VARCHAR},
+      attachName = #{attachname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

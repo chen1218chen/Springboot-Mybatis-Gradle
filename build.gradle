@@ -18,6 +18,8 @@ repositories {
 	 mavenLocal() 
 	 //指定库
     // maven { url "http://192.168.1.194:8081/repository/maven-public/" }
+    jcenter-snapshots { url "http://oss.jfrog.org/artifactory/oss-snapshot-local/" }
+    jcenter-releases {url "http://jcenter.bintray.com" }
 }
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version:'1.4.2.RELEASE'

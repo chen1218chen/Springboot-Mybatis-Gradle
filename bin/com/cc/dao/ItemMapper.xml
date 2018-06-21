@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cc.dao.ItemMapper" >
+  <resultMap id="BaseResultMap" type="com.cc.entity.Item" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ownerName" property="ownername" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="dataTime" property="datatime" jdbcType="VARCHAR" />
+    <result column="dealName" property="dealname" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="INTEGER" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="jurisdiction" property="jurisdiction" jdbcType="VARCHAR" />
+    <result column="taskId" property="taskid" jdbcType="VARCHAR" />
+    <result column="blackList" property="blacklist" jdbcType="INTEGER" />
+    <result column="buildName" property="buildname" jdbcType="VARCHAR" />
+    <result column="buildTime" property="buildtime" jdbcType="VARCHAR" />
+    <result column="structure" property="structure" jdbcType="VARCHAR" />
+    <result column="processId" property="processid" jdbcType="INTEGER" />
+    <result column="severity" property="severity" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cc.entity.Item" extends="BaseResultMap" >
+    <result column="result" property="result" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, ownerName, address, area, dataTime, dealName, description, flag, lat, lon, source, 
+    telephone, type, jurisdiction, taskId, blackList, buildName, buildTime, structure, 
+    processId, severity
+  </sql>
+  <sql id="Blob_Column_List" >
+    result
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.cc.entity.ItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cc.entity.ItemExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from item
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from item
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cc.entity.ItemExample" >
+    delete from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cc.entity.Item" >
+    insert into item (id, ownerName, address, 
+      area, dataTime, dealName, 
+      description, flag, lat, 
+      lon, source, telephone, 
+      type, jurisdiction, taskId, 
+      blackList, buildName, buildTime, 
+      structure, processId, severity, 
+      result)
+    values (#{id,jdbcType=INTEGER}, #{ownername,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{datatime,jdbcType=VARCHAR}, #{dealname,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER}, #{lat,jdbcType=VARCHAR}, 
+      #{lon,jdbcType=VARCHAR}, #{source,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{jurisdiction,jdbcType=VARCHAR}, #{taskid,jdbcType=VARCHAR}, 
+      #{blacklist,jdbcType=INTEGER}, #{buildname,jdbcType=VARCHAR}, #{buildtime,jdbcType=VARCHAR}, 
+      #{structure,jdbcType=VARCHAR}, #{processid,jdbcType=INTEGER}, #{severity,jdbcType=INTEGER}, 
+      #{result,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cc.entity.Item" >
+    insert into item
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ownername != null" >
+        ownerName,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="datatime != null" >
+        dataTime,
+      </if>
+      <if test="dealname != null" >
+        dealName,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="flag != null" >
+        flag,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="lon != null" >
+        lon,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="jurisdiction != null" >
+        jurisdiction,
+      </if>
+      <if test="taskid != null" >
+        taskId,
+      </if>
+      <if test="blacklist != null" >
+        blackList,
+      </if>
+      <if test="buildname != null" >
+        buildName,
+      </if>
+      <if test="buildtime != null" >
+        buildTime,
+      </if>
+      <if test="structure != null" >
+        structure,
+      </if>
+      <if test="processid != null" >
+        processId,
+      </if>
+      <if test="severity != null" >
+        severity,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="ownername != null" >
+        #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="datatime != null" >
+        #{datatime,jdbcType=VARCHAR},
+      </if>
+      <if test="dealname != null" >
+        #{dealname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdiction != null" >
+        #{jurisdiction,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklist != null" >
+        #{blacklist,jdbcType=INTEGER},
+      </if>
+      <if test="buildname != null" >
+        #{buildname,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null" >
+        #{buildtime,jdbcType=VARCHAR},
+      </if>
+      <if test="structure != null" >
+        #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="processid != null" >
+        #{processid,jdbcType=INTEGER},
+      </if>
+      <if test="severity != null" >
+        #{severity,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cc.entity.ItemExample" resultType="java.lang.Integer" >
+    select count(*) from item
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update item
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.ownername != null" >
+        ownerName = #{record.ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.datatime != null" >
+        dataTime = #{record.datatime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealname != null" >
+        dealName = #{record.dealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flag != null" >
+        flag = #{record.flag,jdbcType=INTEGER},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lon != null" >
+        lon = #{record.lon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jurisdiction != null" >
+        jurisdiction = #{record.jurisdiction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskid != null" >
+        taskId = #{record.taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blacklist != null" >
+        blackList = #{record.blacklist,jdbcType=INTEGER},
+      </if>
+      <if test="record.buildname != null" >
+        buildName = #{record.buildname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.buildtime != null" >
+        buildTime = #{record.buildtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.structure != null" >
+        structure = #{record.structure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.processid != null" >
+        processId = #{record.processid,jdbcType=INTEGER},
+      </if>
+      <if test="record.severity != null" >
+        severity = #{record.severity,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update item
+    set id = #{record.id,jdbcType=INTEGER},
+      ownerName = #{record.ownername,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      dataTime = #{record.datatime,jdbcType=VARCHAR},
+      dealName = #{record.dealname,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      lon = #{record.lon,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      jurisdiction = #{record.jurisdiction,jdbcType=VARCHAR},
+      taskId = #{record.taskid,jdbcType=VARCHAR},
+      blackList = #{record.blacklist,jdbcType=INTEGER},
+      buildName = #{record.buildname,jdbcType=VARCHAR},
+      buildTime = #{record.buildtime,jdbcType=VARCHAR},
+      structure = #{record.structure,jdbcType=VARCHAR},
+      processId = #{record.processid,jdbcType=INTEGER},
+      severity = #{record.severity,jdbcType=INTEGER},
+      result = #{record.result,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update item
+    set id = #{record.id,jdbcType=INTEGER},
+      ownerName = #{record.ownername,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      dataTime = #{record.datatime,jdbcType=VARCHAR},
+      dealName = #{record.dealname,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      flag = #{record.flag,jdbcType=INTEGER},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      lon = #{record.lon,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      jurisdiction = #{record.jurisdiction,jdbcType=VARCHAR},
+      taskId = #{record.taskid,jdbcType=VARCHAR},
+      blackList = #{record.blacklist,jdbcType=INTEGER},
+      buildName = #{record.buildname,jdbcType=VARCHAR},
+      buildTime = #{record.buildtime,jdbcType=VARCHAR},
+      structure = #{record.structure,jdbcType=VARCHAR},
+      processId = #{record.processid,jdbcType=INTEGER},
+      severity = #{record.severity,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cc.entity.Item" >
+    update item
+    <set >
+      <if test="ownername != null" >
+        ownerName = #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="datatime != null" >
+        dataTime = #{datatime,jdbcType=VARCHAR},
+      </if>
+      <if test="dealname != null" >
+        dealName = #{dealname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="flag != null" >
+        flag = #{flag,jdbcType=INTEGER},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="jurisdiction != null" >
+        jurisdiction = #{jurisdiction,jdbcType=VARCHAR},
+      </if>
+      <if test="taskid != null" >
+        taskId = #{taskid,jdbcType=VARCHAR},
+      </if>
+      <if test="blacklist != null" >
+        blackList = #{blacklist,jdbcType=INTEGER},
+      </if>
+      <if test="buildname != null" >
+        buildName = #{buildname,jdbcType=VARCHAR},
+      </if>
+      <if test="buildtime != null" >
+        buildTime = #{buildtime,jdbcType=VARCHAR},
+      </if>
+      <if test="structure != null" >
+        structure = #{structure,jdbcType=VARCHAR},
+      </if>
+      <if test="processid != null" >
+        processId = #{processid,jdbcType=INTEGER},
+      </if>
+      <if test="severity != null" >
+        severity = #{severity,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cc.entity.Item" >
+    update item
+    set ownerName = #{ownername,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      dataTime = #{datatime,jdbcType=VARCHAR},
+      dealName = #{dealname,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      lat = #{lat,jdbcType=VARCHAR},
+      lon = #{lon,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      jurisdiction = #{jurisdiction,jdbcType=VARCHAR},
+      taskId = #{taskid,jdbcType=VARCHAR},
+      blackList = #{blacklist,jdbcType=INTEGER},
+      buildName = #{buildname,jdbcType=VARCHAR},
+      buildTime = #{buildtime,jdbcType=VARCHAR},
+      structure = #{structure,jdbcType=VARCHAR},
+      processId = #{processid,jdbcType=INTEGER},
+      severity = #{severity,jdbcType=INTEGER},
+      result = #{result,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cc.entity.Item" >
+    update item
+    set ownerName = #{ownername,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      dataTime = #{datatime,jdbcType=VARCHAR},
+      dealName = #{dealname,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      flag = #{flag,jdbcType=INTEGER},
+      lat = #{lat,jdbcType=VARCHAR},
+      lon = #{lon,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      jurisdiction = #{jurisdiction,jdbcType=VARCHAR},
+      taskId = #{taskid,jdbcType=VARCHAR},
+      blackList = #{blacklist,jdbcType=INTEGER},
+      buildName = #{buildname,jdbcType=VARCHAR},
+      buildTime = #{buildtime,jdbcType=VARCHAR},
+      structure = #{structure,jdbcType=VARCHAR},
+      processId = #{processid,jdbcType=INTEGER},
+      severity = #{severity,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
